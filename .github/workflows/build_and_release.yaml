@@ -19,7 +19,18 @@ jobs:
           repository: ${{ github.repository }}
       - run: echo "After:" && ls -l
       - id: s03
+        # Install Angular CLI and dependencies
         run: |
           npm i -g @angular/cli
           npm ci
           echo "Installed"
+      # - id: s04
+      #   run: |
+      #     echo "Faking an error"
+      #     exit 1
+      - id: s05
+        # Build the Angular app
+        run: |
+          ng build
+          echo "Built"
+      - run: echo "Distribution files:" && ls -l dist/countingbook/browser
