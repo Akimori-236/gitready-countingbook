@@ -1,8 +1,5 @@
 name: Deployment_Pipeline
-on:
-  push:
-    branches:
-      - main
+on: [push]
 
 # better to have different environments (node/python) on different jobs
 jobs:
