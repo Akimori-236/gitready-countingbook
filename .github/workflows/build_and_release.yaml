@@ -18,3 +18,7 @@ jobs:
         with:
           repository: ${{ github.repository }}
       - run: echo "After:" && ls -l
+      - id: s03
+        run: |
+          npm i -g @angular/cli
+          npm ci
