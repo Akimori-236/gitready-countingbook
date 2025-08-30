@@ -1,0 +1,23 @@
+name: 'Deployment Pipeline'
+on:
+  push:
+    branches:
+      - main
+
+# better to have different environments (node/python) on different jobs
+jobs:
+  build_app:
+    runs-on: ubuntu-latest
+    steps:
+      - id: s00
+        run: echo "Repository is ${{ github.repository }}"
+      - id: s01
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: echo "Before:" && ls -l
+      - id: s02
+        uses: actions/checkout@v5
+        with:
+          repository: ${{ github.repository }}
+      - run: echo "After:" && ls -l
