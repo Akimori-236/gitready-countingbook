@@ -19,7 +19,7 @@ jobs:
           repository: ${{ github.repository }}
       - run: echo "After:" && ls -l
       - id: s03
-        # Install Angular CLI and dependencies
+        # Install Angular
         run: |
           npm i -g @angular/cli
           npm ci
@@ -34,3 +34,13 @@ jobs:
           ng build
           echo "Built"
       - run: echo "Distribution files:" && ls -l dist/countingbook/browser
+      - id:
+          s06
+          # Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3.0
+        with:
+          publish-dir: dist/countingbook/browser
+          production-deploy: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
