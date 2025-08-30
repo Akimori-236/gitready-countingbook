@@ -9,9 +9,10 @@ jobs:
       - id: s00
         run: echo "Repository is ${{ github.repository }}"
       - id: s01
+        # Setup Node.js environment
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 'lts'
       - run: echo "Before:" && ls -l
       - id: s02
         uses: actions/checkout@v5
@@ -19,7 +20,7 @@ jobs:
           repository: ${{ github.repository }}
       - run: echo "After:" && ls -l
       - id: s03
-        # Install Angular
+        # install Angular
         run: |
           npm i -g @angular/cli
           npm ci
@@ -29,14 +30,15 @@ jobs:
       #     echo "Faking an error"
       #     exit 1
       - id: s05
-        # Build the Angular app
+        # build the Angular app
         run: |
           ng build
           echo "Built"
+      # monitor distribution files
       - run: echo "Distribution files:" && ls -l dist/countingbook/browser
       - id:
           s06
-          # Deploy to Netlify
+          # deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0
         with:
           publish-dir: dist/countingbook/browser
